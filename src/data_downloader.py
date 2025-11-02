@@ -6,10 +6,11 @@ class DataDownloader:
     """Orchestrates data download from IBKR"""
 
     # LifeCycle -------------------------------------------------------------
-    def __init__(self, ibkr_client, file_manager, orders_parser):
+    def __init__(self, ibkr_client, file_manager, orders_parser, config):
         self.ibkr_client = ibkr_client
         self.file_manager = file_manager
         self.orders_parser = orders_parser
+        self.config = config
 
     # Business Logic --------------------------------------------------------
     def _generate_date_ranges(self, granularity, starting_date):
@@ -52,7 +53,7 @@ class DataDownloader:
                     except Exception as e:
                         self.file_manager.mark_status(file_path, 'corrupted')
                         print(f"FAILED: {file_path.name} - corrupted - {e}")
-                    await asyncio.sleep(1)
+                    await asyncio.sleep(self.config.request_delay_seconds)
 
     def _get_end_date(self, granularity, date_str):
         """Returns end date for IBKR request"""

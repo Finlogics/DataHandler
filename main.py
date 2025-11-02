@@ -6,17 +6,17 @@ asyncio.set_event_loop(loop)
 
 from src.config import Config
 from src.file_manager import FileManager
-from src.ibkr_client import IBKRClient
+from src.providers.ibkr_client import IBKRClient
 from src.orders_parser import OrdersParser
 from src.data_downloader import DataDownloader
 
 async def main():
     """Main entry point with infinite loop for periodic downloads"""
     config = Config()
-    file_manager = FileManager()
+    file_manager = FileManager(config)
     ibkr_client = IBKRClient(config)
-    orders_parser = OrdersParser()
-    downloader = DataDownloader(ibkr_client, file_manager, orders_parser)
+    orders_parser = OrdersParser(config)
+    downloader = DataDownloader(ibkr_client, file_manager, orders_parser, config)
 
     print("Attempting to connect to IBKR...")
     while True:
@@ -26,18 +26,18 @@ async def main():
             break
         except Exception as e:
             print(f"\nFailed to connect to IBKR: {e}")
-            print("Retrying in 30 seconds...\n")
-            await asyncio.sleep(30)
+            print(f"Retrying in {config.connection_retry_seconds} seconds...\n")
+            await asyncio.sleep(config.connection_retry_seconds)
 
     while True:
         try:
             print(f"Starting download cycle")
             await downloader.run()
-            print("Download cycle completed, sleeping for 1 hour")
-            await asyncio.sleep(3600)
+            print(f"Download cycle completed, sleeping for {config.download_cycle_seconds} seconds(s)")
+            await asyncio.sleep(config.download_cycle_seconds)
         except Exception as e:
             print(f"Error during download: {e}")
-            await asyncio.sleep(60)
+            await asyncio.sleep(config.error_retry_seconds)
 
 if __name__ == '__main__':
     try:

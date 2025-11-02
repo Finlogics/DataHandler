@@ -5,8 +5,8 @@ class OrdersParser:
     """Parses orders.json configuration file"""
 
     # LifeCycle -------------------------------------------------------------
-    def __init__(self, orders_file='orders.json'):
-        self.orders_file = Path(orders_file)
+    def __init__(self, config):
+        self.orders_file = Path(config.orders_file)
 
     # Business Logic --------------------------------------------------------
     def get_orders(self):

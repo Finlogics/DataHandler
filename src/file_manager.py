@@ -6,8 +6,8 @@ class FileManager:
     """Manages CSV files and flag files for data downloads"""
 
     # LifeCycle -------------------------------------------------------------
-    def __init__(self, base_dir='raw-data'):
-        self.base_dir = Path(base_dir)
+    def __init__(self, config):
+        self.base_dir = Path(config.raw_data_dir)
 
     # Business Logic --------------------------------------------------------
     def get_file_status(self, file_path):
