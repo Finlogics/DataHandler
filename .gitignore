@@ -1,4 +1,5 @@
 raw-data/
+plan-prompts.txt
 # Byte-compiled / optimized / DLL files
 __pycache__/
 *.py[codz]
