@@ -59,7 +59,7 @@ class DataDownloader:
         """Returns end date for IBKR request"""
         if granularity == '1D':
             return f"{date_str}1231 23:59:59"
-        return f"{date_str} 23:59:59"
+        return f"{date_str.replace('-', '')} 23:59:59"
 
     async def run(self):
         """Runs download for all orders"""
