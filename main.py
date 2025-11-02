@@ -4,10 +4,10 @@ import asyncio
 loop = asyncio.new_event_loop()
 asyncio.set_event_loop(loop)
 
-from config.config import Config
+from src.configuration.config import Config
 from src.file_manager import FileManager
 from src.providers.ibkr_client import IBKRClient
-from config.orders_parser import OrdersParser
+from src.configuration.orders_parser import OrdersParser
 from src.data_downloader import DataDownloader
 
 async def main():
@@ -25,7 +25,8 @@ async def main():
             print("Connected to IBKR successfully")
             break
         except Exception as e:
-            print(f"\nFailed to connect to IBKR: {e}")
+            error_msg = str(e) if str(e) else "Connection failed"
+            print(f"\nFailed to connect to IBKR: {error_msg}")
             print(f"Retrying in {config.connection_retry_seconds} seconds...\n")
             await asyncio.sleep(config.connection_retry_seconds)
 

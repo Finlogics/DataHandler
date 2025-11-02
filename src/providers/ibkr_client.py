@@ -12,7 +12,7 @@ class IBKRClient:
 
     async def connect(self):
         """Connects to IBKR Gateway/TWS"""
-        await self.ib.connectAsync(self.config.host, self.config.port, clientId=self.config.client_id)
+        await self.ib.connectAsync(self.config.host, self.config.port, clientId=self.config.client_id, timeout=20, readonly=True)
 
     async def disconnect(self):
         """Disconnects from IBKR"""
