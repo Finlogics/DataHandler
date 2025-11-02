@@ -5,5 +5,11 @@
     "granularities": ["1D"],
     "tickers": ["AAPL", "MSFT", "JPM", "JNJ", "V", "UNH", "HD", "PG", "DIS", "MA", "CVX", "MRK", "KO", "MCD", "CSCO", "WMT", 
     "IBM", "CAT", "GS", "TRV", "NKE", "HON", "AMGN", "AXP", "BA", "CRM", "VZ", "INTC", "DOW", "MMM"]
+  },
+  {
+    "name": "DJIA",
+    "starting_date": "2024-01-01",
+    "granularities": ["1M"],
+    "tickers": ["AAPL"]
   }
 ]
