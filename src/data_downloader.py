@@ -43,10 +43,15 @@ class DataDownloader:
                     file_path = self.file_manager.get_file_path(ticker, granularity, date_str)
                     if not self._should_download(file_path):
                         continue
-                    self.file_manager.mark_status(file_path, 'incomplete')
-                    end_date = self._get_end_date(granularity, date_str)
-                    data = await self.ibkr_client.fetch_historical_data(ticker, granularity, end_date)
-                    self.file_manager.write_csv(file_path, data)
+                    try:
+                        self.file_manager.mark_status(file_path, 'incomplete')
+                        end_date = self._get_end_date(granularity, date_str)
+                        data = await self.ibkr_client.fetch_historical_data(ticker, granularity, end_date)
+                        self.file_manager.write_csv(file_path, data)
+                        print(f"SUCCESS: {file_path.name} - completed")
+                    except Exception as e:
+                        self.file_manager.mark_status(file_path, 'corrupted')
+                        print(f"FAILED: {file_path.name} - corrupted - {e}")
                     await asyncio.sleep(1)
 
     def _get_end_date(self, granularity, date_str):
