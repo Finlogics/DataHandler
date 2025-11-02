@@ -4,10 +4,10 @@ import asyncio
 loop = asyncio.new_event_loop()
 asyncio.set_event_loop(loop)
 
-from src.config import Config
+from config.config import Config
 from src.file_manager import FileManager
 from src.providers.ibkr_client import IBKRClient
-from src.orders_parser import OrdersParser
+from config.orders_parser import OrdersParser
 from src.data_downloader import DataDownloader
 
 async def main():
