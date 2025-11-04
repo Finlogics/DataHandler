@@ -21,3 +21,7 @@ dependencies = [
 
 [project.urls]
 Repository = "https://github.com/Finlogics/DataHandler"
+
+[tool.setuptools.packages.find]
+where = ["."]
+include = ["src*"]

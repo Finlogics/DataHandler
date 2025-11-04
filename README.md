@@ -1,7 +1,5 @@
 # DataHandler
 
-**⚠️ PRIVATE PACKAGE - DO NOT PUBLISH TO PYPI**
-
 Market data downloader using Interactive Brokers API. Downloads historical price data for configured tickers and saves to local storage.
 
 ## Requirements
