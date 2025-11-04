@@ -2,6 +2,8 @@
 requires = ["setuptools>=45", "wheel"]
 build-backend = "setuptools.build_meta"
 
+# PRIVATE PACKAGE - DO NOT PUBLISH TO PYPI
+# This package is for internal use only
 [project]
 name = "datahandler"
 version = "0.1.0"
