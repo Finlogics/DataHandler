@@ -7,7 +7,7 @@ class FileManager:
 
     # LifeCycle -------------------------------------------------------------
     def __init__(self, config):
-        self.base_dir = Path(config.raw_data_dir)
+        self.base_dir = Path(config.processed_data_dir)
 
     # Business Logic --------------------------------------------------------
     def get_file_status(self, file_path):

@@ -31,7 +31,7 @@ class NormalizationTracker:
 
         ret=[]
         for value in values:
-            normalized={'data': value['date']}
+            normalized={'date': value['date']}
             normalized['open'] = value['open'] / norm_data['open'] * 2 - 1
             normalized['high'] = value['high'] / norm_data['open'] * 2 - 1
             normalized['low'] = value['low'] / norm_data['open'] * 2 - 1
@@ -49,7 +49,7 @@ class NormalizationTracker:
 
         ret=[]
         for value in values:
-            unnormalized={'data': value['date']}
+            unnormalized={'date': value['date']}
             unnormalized['open'] = norm_data['open'] * (value['open'] + 1) / 2
             unnormalized['high'] = norm_data['open'] * (value['high'] + 1) / 2
             unnormalized['low'] = norm_data['open'] * (value['low'] + 1) / 2

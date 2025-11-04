@@ -1,6 +1,6 @@
 - this project is to download market data through broker api and save data into target location.
 - always write minimal code that does the job. do not excessively put if statements or check edge cases. your docstring for methods and classes should not exceed 1 line. do not use chopping format to break method calls and definitions to multiple line. do not use module methods unless necessary. prefer to use classes and OO paradigm when appropriate.
-- Every time you finish editing my code, Create ad-hoc code to verify code correctness and make sure the edits are not doing harm. after confirmation of correct behaviour, clean the ad-hoc folder.
 - if you have questions about an issue, ask me to clarify. do not make big assumptions.
 - for each class, methods are ordered in sections. sections are separated by hyphen comment lines. order is: LifeCycle, Business Logic, IO, Misc.
 - this project assumes IB Gateway is installed. The user should make sure it is installed before using this project.
+- method parameters should have type: eg. def unnormalize_value(self, ticker: str, granularity: str, values: list[dict]) -> float:

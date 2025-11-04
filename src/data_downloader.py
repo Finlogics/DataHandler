@@ -48,6 +48,8 @@ class DataDownloader:
 
     async def download_order(self, order):
         """Downloads all data for a single order"""
+        currency = order.get('currency', 'USD')
+        exchange = order.get('exchange', 'SMART')
         for ticker in order['tickers']:
             for granularity in order['granularities']:
                 dates = self._generate_date_ranges(granularity, order['starting_date'])[::-1]
@@ -58,7 +60,7 @@ class DataDownloader:
                     try:
                         self.file_manager.mark_status(file_path, 'incomplete')
                         end_date = self._get_end_date(granularity, date_str)
-                        data = await self.ibkr_client.fetch_historical_data(ticker, granularity, end_date)
+                        data = await self.ibkr_client.fetch_historical_data(ticker, granularity, end_date, currency, exchange)
                         if not self.normalization_tracker.has_entry(ticker, granularity):
                             newest_bar = data[-1]
                             self.normalization_tracker.add_entry(ticker, granularity, newest_bar['open'], newest_bar['volume'], newest_bar['barCount'])

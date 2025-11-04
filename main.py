@@ -15,7 +15,7 @@ async def main():
     """Main entry point with infinite loop for periodic downloads"""
     config = Config()
     file_manager = FileManager(config)
-    normalization_tracker = NormalizationTracker('raw-data/normalization.json')
+    normalization_tracker = NormalizationTracker(f'{config.processed_data_dir}/normalization.json')
     ibkr_client = IBKRClient(config)
     orders_parser = OrdersParser(config)
     downloader = DataDownloader(ibkr_client, file_manager, orders_parser, config, normalization_tracker)

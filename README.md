@@ -57,7 +57,7 @@ The application connects to IBKR Gateway, processes orders from orders.json, and
 ```
 DataHandler/
 ├── config/           # Configuration files
-├── raw-data/         # Downloaded market data
+├── processed-data/   # Downloaded market data
 ├── src/
 │   ├── configuration/  # Config and order parsing
 │   ├── providers/      # IBKR client implementation

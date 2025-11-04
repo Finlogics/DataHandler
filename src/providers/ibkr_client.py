@@ -1,6 +1,5 @@
-from ib_insync import IB, Stock, util
-from datetime import datetime, timedelta
-import asyncio
+from ib_insync import IB, Stock
+
 
 class IBKRClient:
     """Wrapper for ib_insync to fetch historical market data"""
@@ -30,11 +29,12 @@ class IBKRClient:
             return '1 D'
         return '1 Y'
 
-    async def fetch_historical_data(self, ticker, granularity, end_date):
+    async def fetch_historical_data(self, ticker, granularity, end_date, currency='USD', exchange='SMART'):
         """Fetches historical data for ticker at granularity ending at end_date"""
-        contract = Stock(ticker, 'SMART', 'USD')
+        contract = Stock(ticker, exchange, currency)
         await self.ib.qualifyContractsAsync(contract)
-        bars = await self.ib.reqHistoricalDataAsync(contract, endDateTime=end_date, durationStr=self._get_duration(granularity), barSizeSetting=self._get_bar_size(granularity), whatToShow='TRADES', useRTH=True)
+        bars = await self.ib.reqHistoricalDataAsync(contract, endDateTime=end_date, durationStr=self._get_duration(granularity),
+                                                     barSizeSetting=self._get_bar_size(granularity), whatToShow='TRADES', useRTH=True)
         return [{'date': bar.date, 'open': bar.open, 'high': bar.high, 'low': bar.low, 'close': bar.close, 'volume': bar.volume, 'average': bar.average, 'barCount': bar.barCount} for bar in bars]
 
     # IO --------------------------------------------------------------------

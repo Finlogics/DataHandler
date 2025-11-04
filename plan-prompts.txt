@@ -9,3 +9,6 @@ as an object in memory. every time the object in memory is changed, the json fil
 ib gateway, the program should check if there is an entry for the combination of (ticker, granularity) in the object; for example (AAPL, 1D). if there is not an entry, 
 it should be created by the first entry of the fetched data and saved to json. the idea is to know what is the abouts of values. the value items are these items: 1) open 
 2) volume 3) barcount. there are two entries as example in normalization.json.
+
+let's expand the granularities. the project should support 1S, 5S, 15S, 30S, 1M, 5M, 15M, 30M, 1H, 1D, 1W. the downloaded files are going to be for a day for granularities 
+lower than 1D and a year for 1D and above. 
