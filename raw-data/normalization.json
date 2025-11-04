@@ -2,15 +2,218 @@
   {
     "ticker": "AAPL",
     "granularity": "1D",
-    "open": 248.93,
-    "volume": 34311269.0,
-    "barCount": 169095
+    "open": 270.48,
+    "volume": 22813649.0,
+    "barCount": 121417
+  },
+  {
+    "ticker": "MSFT",
+    "granularity": "1D",
+    "open": 519.92,
+    "volume": 12530370.0,
+    "barCount": 132561
+  },
+  {
+    "ticker": "JPM",
+    "granularity": "1D",
+    "open": 311.0,
+    "volume": 4579578.0,
+    "barCount": 55646
+  },
+  {
+    "ticker": "JNJ",
+    "granularity": "1D",
+    "open": 189.0,
+    "volume": 4065993.0,
+    "barCount": 23538
+  },
+  {
+    "ticker": "V",
+    "granularity": "1D",
+    "open": 341.0,
+    "volume": 2715726.0,
+    "barCount": 33300
+  },
+  {
+    "ticker": "UNH",
+    "granularity": "1D",
+    "open": 339.13,
+    "volume": 7920327.0,
+    "barCount": 75512
+  },
+  {
+    "ticker": "HD",
+    "granularity": "1D",
+    "open": 377.01,
+    "volume": 1622619.0,
+    "barCount": 19388
+  },
+  {
+    "ticker": "PG",
+    "granularity": "1D",
+    "open": 150.09,
+    "volume": 3626062.0,
+    "barCount": 21047
+  },
+  {
+    "ticker": "DIS",
+    "granularity": "1D",
+    "open": 112.55,
+    "volume": 4860332.0,
+    "barCount": 27744
+  },
+  {
+    "ticker": "MA",
+    "granularity": "1D",
+    "open": 550.0,
+    "volume": 1767587.0,
+    "barCount": 22990
+  },
+  {
+    "ticker": "CVX",
+    "granularity": "1D",
+    "open": 157.41,
+    "volume": 3706762.0,
+    "barCount": 22958
+  },
+  {
+    "ticker": "MRK",
+    "granularity": "1D",
+    "open": 85.77,
+    "volume": 6938555.0,
+    "barCount": 38876
+  },
+  {
+    "ticker": "KO",
+    "granularity": "1D",
+    "open": 68.8,
+    "volume": 10153005.0,
+    "barCount": 59149
+  },
+  {
+    "ticker": "MCD",
+    "granularity": "1D",
+    "open": 297.67,
+    "volume": 2260833.0,
+    "barCount": 29979
+  },
+  {
+    "ticker": "CSCO",
+    "granularity": "1D",
+    "open": 74.72,
+    "volume": 13023143.0,
+    "barCount": 73085
+  },
+  {
+    "ticker": "WMT",
+    "granularity": "1D",
+    "open": 100.81,
+    "volume": 8986339.0,
+    "barCount": 52000
+  },
+  {
+    "ticker": "IBM",
+    "granularity": "1D",
+    "open": 308.0,
+    "volume": 2427396.0,
+    "barCount": 28385
+  },
+  {
+    "ticker": "CAT",
+    "granularity": "1D",
+    "open": 575.93,
+    "volume": 1452206.0,
+    "barCount": 19193
+  },
+  {
+    "ticker": "GS",
+    "granularity": "1D",
+    "open": 789.57,
+    "volume": 923877.0,
+    "barCount": 12851
+  },
+  {
+    "ticker": "TRV",
+    "granularity": "1D",
+    "open": 267.38,
+    "volume": 1028836.0,
+    "barCount": 11756
+  },
+  {
+    "ticker": "NKE",
+    "granularity": "1D",
+    "open": 64.75,
+    "volume": 14306272.0,
+    "barCount": 61995
+  },
+  {
+    "ticker": "HON",
+    "granularity": "1D",
+    "open": 201.45,
+    "volume": 1908614.0,
+    "barCount": 11595
   },
   {
     "ticker": "AMGN",
     "granularity": "1D",
-    "open": 262.18,
-    "volume": 1031830.0,
-    "barCount": 7110
+    "open": 298.43,
+    "volume": 1519011.0,
+    "barCount": 18698
+  },
+  {
+    "ticker": "AXP",
+    "granularity": "1D",
+    "open": 361.0,
+    "volume": 1062203.0,
+    "barCount": 13568
+  },
+  {
+    "ticker": "BA",
+    "granularity": "1D",
+    "open": 202.04,
+    "volume": 4154467.0,
+    "barCount": 24089
+  },
+  {
+    "ticker": "CRM",
+    "granularity": "1D",
+    "open": 260.0,
+    "volume": 4016340.0,
+    "barCount": 25634
+  },
+  {
+    "ticker": "VZ",
+    "granularity": "1D",
+    "open": 39.51,
+    "volume": 33232847.0,
+    "barCount": 101746
+  },
+  {
+    "ticker": "INTC",
+    "granularity": "1D",
+    "open": 40.25,
+    "volume": 49006937.0,
+    "barCount": 137403
+  },
+  {
+    "ticker": "DOW",
+    "granularity": "1D",
+    "open": 23.59,
+    "volume": 8500902.0,
+    "barCount": 38049
+  },
+  {
+    "ticker": "MMM",
+    "granularity": "1D",
+    "open": 166.01,
+    "volume": 1543782.0,
+    "barCount": 11268
+  },
+  {
+    "ticker": "AAPL",
+    "granularity": "1M",
+    "open": 269.05,
+    "volume": 789745.0,
+    "barCount": 5101
   }
 ]

@@ -17,16 +17,16 @@ class DataDownloader:
     def _generate_date_ranges(self, granularity, starting_date):
         """Generates list of date strings for files to download"""
         start = datetime.strptime(starting_date, '%Y-%m-%d')
-        today = datetime.now()
+        yesterday = datetime.now() - timedelta(days=1)
         dates = []
-        if granularity == '1D':
+        if self._is_major_granularity(granularity):
             year = start.year
-            while year <= today.year:
+            while year <= yesterday.year:
                 dates.append(str(year))
                 year += 1
         else:
             current = start
-            while current <= today:
+            while current <= yesterday:
                 dates.append(current.strftime('%Y-%m-%d'))
                 current += timedelta(days=1)
         return dates
@@ -44,7 +44,7 @@ class DataDownloader:
         """Downloads all data for a single order"""
         for ticker in order['tickers']:
             for granularity in order['granularities']:
-                dates = self._generate_date_ranges(granularity, order['starting_date'])
+                dates = self._generate_date_ranges(granularity, order['starting_date'])[::-1]
                 for date_str in dates:
                     file_path = self.file_manager.get_file_path(ticker, granularity, date_str)
                     if not self._should_download(file_path):
@@ -53,7 +53,7 @@ class DataDownloader:
                         self.file_manager.mark_status(file_path, 'incomplete')
                         end_date = self._get_end_date(granularity, date_str)
                         data = await self.ibkr_client.fetch_historical_data(ticker, granularity, end_date)
-                        if self._is_major_granularity(granularity) and not self.normalization_tracker.has_entry(ticker, granularity) and data:
+                        if not self.normalization_tracker.has_entry(ticker, granularity):
                             newest_bar = data[-1]
                             self.normalization_tracker.add_entry(ticker, granularity, newest_bar['open'], newest_bar['volume'], newest_bar['barCount'])
                         self.file_manager.write_csv(file_path, data)

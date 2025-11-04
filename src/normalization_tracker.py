@@ -11,6 +11,9 @@ class NormalizationTracker:
         """Initialize tracker and load existing data from JSON file."""
         self.file_path = Path(file_path)
         self.data = {}
+        if not self.file_path.exists():
+            with open(self.file_path, 'w') as f:
+                json.dump([], f)
 
         with open(self.file_path, 'r') as f:
             entries = json.load(f)
