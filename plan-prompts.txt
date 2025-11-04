@@ -12,3 +12,14 @@ it should be created by the first entry of the fetched data and saved to json. t
 
 let's expand the granularities. the project should support 1S, 5S, 15S, 30S, 1M, 5M, 15M, 30M, 1H, 1D, 1W. the downloaded files are going to be for a day for granularities 
 lower than 1D and a year for 1D and above. 
+
+  {
+    "name": "DAX",
+    "exchange": "XETRA",
+    "starting_date": "2025-01-01",
+    "granularities": ["1D"],
+    "currency": "EUR",
+    "tickers": ["DAX", "ADS", "AIR", "ALV", "BAS", "BAYN", "BEI", "BMW", "BNR", "CBK", "CON", "1COV", "DTG", "DBK",
+    "DB1", "DHL", "DTE", "EOAN", "FRE", "FME", "HNR1", "HEI", "HEN3", "IFX", "MBG", "MRK", "MTX", "MUV2", "P911",
+    "PAH3", "QIA", "RHM", "RWE", "SAP", "SRT3", "SIE", "ENR", "SHL", "SY1", "VOW3", "VNA", "ZAL"]
+  }

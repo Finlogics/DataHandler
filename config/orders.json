@@ -1,12 +1,10 @@
 [
   {
-    "name": "DAX",
-    "exchange": "IBIS",
-    "starting_date": "2022-01-01",
+    "name": "DJIA",
+    "exchange": "ُSMART",
+    "starting_date": "2025-11-01",
     "granularities": ["1D"],
-    "currency": "EUR",
-    "tickers": ["DAX.DE", "ADS", "AIR", "ALV", "BAS", "BAYN", "BEI", "BMW", "BNR", "CBK", "CON", "1COV", "DTG", "DBK",
-    "DB1", "DHL", "DTE", "EOAN", "FRE", "FME", "HNR1", "HEI", "HEN3", "IFX", "MBG", "MRK", "MTX", "MUV2", "P911",
-    "PAH3", "QIA", "RHM", "RWE", "SAP", "SRT3", "SIE", "ENR", "SHL", "SY1", "VOW3", "VNA", "ZAL"]
+    "currency": "USD",
+    "tickers": ["AAPL", "MSFT", "GOOGL"]
   }
 ]

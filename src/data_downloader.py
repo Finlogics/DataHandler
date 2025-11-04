@@ -74,7 +74,7 @@ class DataDownloader:
 
     def _get_end_date(self, granularity, date_str):
         """Returns end date for IBKR request"""
-        if granularity == '1D':
+        if self._is_major_granularity(granularity):
             return f"{date_str}1231 23:59:59"
         return f"{date_str.replace('-', '')} 23:59:59"
 

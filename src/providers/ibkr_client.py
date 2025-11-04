@@ -20,12 +20,12 @@ class IBKRClient:
     # Business Logic --------------------------------------------------------
     def _get_bar_size(self, granularity):
         """Maps granularity to IBKR bar size"""
-        mapping = {'1S': '1 secs', '1M': '1 min', '1D': '1 day'}
+        mapping = {'1S': '1 secs', '5S': '5 secs', '15S': '15 secs', '30S': '30 secs', '1M': '1 min', '5M': '5 mins', '15M': '15 mins', '30M': '30 mins', '1H': '1 hour', '1D': '1 day', '1W': '1 week'}
         return mapping.get(granularity, '1 day')
 
     def _get_duration(self, granularity):
         """Returns duration string for IBKR request"""
-        if granularity in ['1S', '1M']:
+        if granularity in ['1S', '5S', '15S', '30S', '1M', '5M', '15M', '30M', '1H']:
             return '1 D'
         return '1 Y'
 
