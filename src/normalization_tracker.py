@@ -23,6 +23,43 @@ class NormalizationTracker:
 
     # Business Logic
     # -------------------------------------------------------------------------
+
+    def normalize_value(self, ticker: str, granularity: str, values: list[dict]) -> float:
+        """Normalize a value based on stored normalization data."""
+        key = (ticker, granularity)
+        norm_data = self.data[key]
+
+        ret=[]
+        for value in values:
+            normalized={'data': value['date']}
+            normalized['open'] = value['open'] / norm_data['open'] * 2 - 1
+            normalized['high'] = value['high'] / norm_data['open'] * 2 - 1
+            normalized['low'] = value['low'] / norm_data['open'] * 2 - 1
+            normalized['close'] = value['close'] / norm_data['open'] * 2 - 1
+            normalized['average'] = value['average'] / norm_data['open'] * 2 - 1
+            normalized['volume'] = value['volume'] / norm_data['volume'] * 2 - 1
+            normalized['barCount'] = value['barCount'] / norm_data['barCount'] * 2 - 1
+            ret.append(normalized)
+        return ret
+    
+    def unnormalize_value(self, ticker: str, granularity: str, values: list[dict]) -> float:
+        """Unnormalize a value based on stored normalization data."""
+        key = (ticker, granularity)
+        norm_data = self.data[key]
+
+        ret=[]
+        for value in values:
+            unnormalized={'data': value['date']}
+            unnormalized['open'] = norm_data['open'] * (value['open'] + 1) / 2
+            unnormalized['high'] = norm_data['open'] * (value['high'] + 1) / 2
+            unnormalized['low'] = norm_data['open'] * (value['low'] + 1) / 2
+            unnormalized['close'] = norm_data['open'] * (value['close'] + 1) / 2
+            unnormalized['average'] = norm_data['open'] * (value['average'] + 1) / 2
+            unnormalized['volume'] = norm_data['volume'] * (value['volume'] + 1) / 2
+            unnormalized['barCount'] = norm_data['barCount'] * (value['barCount'] + 1) / 2  
+            ret.append(unnormalized)
+        return ret
+
     def has_entry(self, ticker: str, granularity: str) -> bool:
         """Check if normalization entry exists for ticker-granularity combination."""
         return (ticker, granularity) in self.data
@@ -31,6 +68,8 @@ class NormalizationTracker:
         """Add normalization entry and save to JSON."""
         self.data[(ticker, granularity)] = {'open': open_val, 'volume': volume, 'barCount': bar_count}
         self._save()
+    
+
 
     # IO
     # -------------------------------------------------------------------------

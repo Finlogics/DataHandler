@@ -2,11 +2,17 @@ from datetime import datetime, timedelta
 from dateutil.relativedelta import relativedelta
 import asyncio
 
+from src.configuration.config import Config
+from src.configuration.orders_parser import OrdersParser
+from src.file_manager import FileManager
+from src.normalization_tracker import NormalizationTracker
+from src.providers.ibkr_client import IBKRClient
+
 class DataDownloader:
     """Orchestrates data download from IBKR"""
 
     # LifeCycle -------------------------------------------------------------
-    def __init__(self, ibkr_client, file_manager, orders_parser, config, normalization_tracker):
+    def __init__(self, ibkr_client:IBKRClient, file_manager:FileManager, orders_parser:OrdersParser, config:Config, normalization_tracker:NormalizationTracker):
         self.ibkr_client = ibkr_client
         self.file_manager = file_manager
         self.orders_parser = orders_parser
@@ -56,6 +62,7 @@ class DataDownloader:
                         if not self.normalization_tracker.has_entry(ticker, granularity):
                             newest_bar = data[-1]
                             self.normalization_tracker.add_entry(ticker, granularity, newest_bar['open'], newest_bar['volume'], newest_bar['barCount'])
+                        self.normalization_tracker.normalize_value(ticker, granularity, data)
                         self.file_manager.write_csv(file_path, data)
                         print(f"SUCCESS: {file_path.name} - completed")
                     except Exception as e:
