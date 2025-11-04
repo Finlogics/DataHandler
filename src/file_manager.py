@@ -46,6 +46,3 @@ class FileManager:
         df.to_csv(file_path, index=False)
         self.mark_status(file_path, 'completed')
 
-    def read_csv(self, file_path):
-        """Reads CSV file into DataFrame"""
-        return pd.read_csv(file_path)

@@ -3,5 +3,4 @@
 - Every time you finish editing my code, Create ad-hoc code to verify code correctness and make sure the edits are not doing harm. after confirmation of correct behaviour, clean the ad-hoc folder.
 - if you have questions about an issue, ask me to clarify. do not make big assumptions.
 - for each class, methods are ordered in sections. sections are separated by hyphen comment lines. order is: LifeCycle, Business Logic, IO, Misc.
-- for every session, the first prompt i write in claude code in plan mode should be added to the end file plan-prompt.txt after two blank lines
 - this project assumes IB Gateway is installed. The user should make sure it is installed before using this project.

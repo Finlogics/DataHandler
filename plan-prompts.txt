@@ -4,5 +4,8 @@ should download data into csv files. if the file is already downloaded and is co
 there is a  csv file for each day. for coarse data (1D), each csv is related for 1 year. for folder structure, there is a folder called data-raw. let me give and example. 
 the path to 1D data for AAPL for year 2023 is raw-data/1D/AAPL-2023.csv and the path to MSFT for 2024-05-03 with 1M granularity is raw-data/1M/MSFT-2024-05-03.csv.
 
-the pipelines for the project is 4 ways. 1) the source code can be downloaded and installed. 2) the project can be installed with one liner pip install. 3) 
-publish into pypi.
+There is a file in raw-data folder named normaliziation.json. for each ticker, it should have one itemper granulaity (1M,1S, etc). at startup, its contents should be loaded 
+as an object in memory. every time the object in memory is changed, the json file should be updated. every time a major (1D, 5D, and above) garnularity data is fetched from 
+ib gateway, the program should check if there is an entry for the combination of (ticker, granularity) in the object; for example (AAPL, 1D). if there is not an entry, 
+it should be created by the first entry of the fetched data and saved to json. the idea is to know what is the abouts of values. the value items are these items: 1) open 
+2) volume 3) barcount. there are two entries as example in normalization.json.

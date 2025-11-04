@@ -1,0 +1,16 @@
+[
+  {
+    "ticker": "AAPL",
+    "granularity": "1D",
+    "open": 248.93,
+    "volume": 34311269.0,
+    "barCount": 169095
+  },
+  {
+    "ticker": "AMGN",
+    "granularity": "1D",
+    "open": 262.18,
+    "volume": 1031830.0,
+    "barCount": 7110
+  }
+]

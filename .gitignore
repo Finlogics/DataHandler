@@ -1,4 +1,15 @@
-raw-data/
+raw-data/1S/
+raw-data/5S/
+raw-data/10S/
+raw-data/30S/
+raw-data/1M/
+raw-data/5M/
+raw-data/10M/
+raw-data/30M/
+raw-data/1H/
+raw-data/5H/
+raw-data/1D/
+raw-data/1W/
 plan-prompts.txt
 # Byte-compiled / optimized / DLL files
 __pycache__/

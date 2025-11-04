@@ -6,11 +6,12 @@ class DataDownloader:
     """Orchestrates data download from IBKR"""
 
     # LifeCycle -------------------------------------------------------------
-    def __init__(self, ibkr_client, file_manager, orders_parser, config):
+    def __init__(self, ibkr_client, file_manager, orders_parser, config, normalization_tracker):
         self.ibkr_client = ibkr_client
         self.file_manager = file_manager
         self.orders_parser = orders_parser
         self.config = config
+        self.normalization_tracker = normalization_tracker
 
     # Business Logic --------------------------------------------------------
     def _generate_date_ranges(self, granularity, starting_date):
@@ -35,6 +36,10 @@ class DataDownloader:
         status = self.file_manager.get_file_status(file_path)
         return status != 'completed'
 
+    def _is_major_granularity(self, granularity):
+        """Returns True if granularity is 1D or larger"""
+        return granularity.endswith('D') or granularity.endswith('W')
+
     async def download_order(self, order):
         """Downloads all data for a single order"""
         for ticker in order['tickers']:
@@ -48,6 +53,9 @@ class DataDownloader:
                         self.file_manager.mark_status(file_path, 'incomplete')
                         end_date = self._get_end_date(granularity, date_str)
                         data = await self.ibkr_client.fetch_historical_data(ticker, granularity, end_date)
+                        if self._is_major_granularity(granularity) and not self.normalization_tracker.has_entry(ticker, granularity) and data:
+                            newest_bar = data[-1]
+                            self.normalization_tracker.add_entry(ticker, granularity, newest_bar['open'], newest_bar['volume'], newest_bar['barCount'])
                         self.file_manager.write_csv(file_path, data)
                         print(f"SUCCESS: {file_path.name} - completed")
                     except Exception as e:

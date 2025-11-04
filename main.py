@@ -9,14 +9,16 @@ from src.file_manager import FileManager
 from src.providers.ibkr_client import IBKRClient
 from src.configuration.orders_parser import OrdersParser
 from src.data_downloader import DataDownloader
+from src.normalization_tracker import NormalizationTracker
 
 async def main():
     """Main entry point with infinite loop for periodic downloads"""
     config = Config()
     file_manager = FileManager(config)
+    normalization_tracker = NormalizationTracker('raw-data/normalization.json')
     ibkr_client = IBKRClient(config)
     orders_parser = OrdersParser(config)
-    downloader = DataDownloader(ibkr_client, file_manager, orders_parser, config)
+    downloader = DataDownloader(ibkr_client, file_manager, orders_parser, config, normalization_tracker)
 
     print("Attempting to connect to IBKR...")
     while True:
