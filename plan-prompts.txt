@@ -1,4 +1,8 @@
-we want to download stock price data (historica and live) according to orders.json file. the granularity of data can be fine-grained (1M,1S) or coarse (1D). the provider is ibkr and we need to download from it. you should choose an api which can download both historical and live data. we do not implement live data for now. the project should download data into csv files. if the file is already downloaded and is completed and not corrupted, it should not be downloaded again. for granular data (1S or 1M), there is a  csv file for each day. for coarse data (1D), each csv is related for 1 year. for folder structure, there is a folder called data-raw. let me give and example. the path to 1D data for AAPL for year 2023 is raw-data/1D/AAPL-2023.csv and the path to MSFT for 2024-05-03 with 1M granularity is raw-data/1M/MSFT-2024-05-03.csv.
+we want to download stock price data (historica and live) according to orders.json file. the granularity of data can be fine-grained (1M,1S) or coarse (1D). the provider 
+is ibkr and we need to download from it. you should choose an api which can download both historical and live data. we do not implement live data for now. the project 
+should download data into csv files. if the file is already downloaded and is completed and not corrupted, it should not be downloaded again. for granular data (1S or 1M), 
+there is a  csv file for each day. for coarse data (1D), each csv is related for 1 year. for folder structure, there is a folder called data-raw. let me give and example. 
+the path to 1D data for AAPL for year 2023 is raw-data/1D/AAPL-2023.csv and the path to MSFT for 2024-05-03 with 1M granularity is raw-data/1M/MSFT-2024-05-03.csv.
 
-the pipelines for the project is 4 ways. 1) the source code can be downloaded and installed. 2) the project can be installed with one liner pip install. 3) publish into pypi 4) installed using
-  docker.
+the pipelines for the project is 4 ways. 1) the source code can be downloaded and installed. 2) the project can be installed with one liner pip install. 3) 
+publish into pypi.
