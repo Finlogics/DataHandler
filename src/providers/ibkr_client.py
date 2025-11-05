@@ -1,8 +1,8 @@
-from ib_insync import IB, Stock
+from ib_async import IB, Stock
 
 
 class IBKRClient:
-    """Wrapper for ib_insync to fetch historical market data"""
+    """Wrapper for ib_async to fetch historical market data"""
 
     # LifeCycle -------------------------------------------------------------
     def __init__(self, config):
