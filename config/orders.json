@@ -1,7 +1,7 @@
 [
   {
     "name": "DJIA",
-    "exchange": "ُSMART",
+    "exchange": "SMART",
     "starting_date": "2025-11-01",
     "granularities": ["1D"],
     "currency": "USD",

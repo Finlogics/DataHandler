@@ -1,5 +1,7 @@
 import asyncio
 
+from ib_insync import Stock
+
 # Create event loop before importing ib_insync (required for Python 3.14)
 loop = asyncio.new_event_loop()
 asyncio.set_event_loop(loop)

@@ -12,6 +12,7 @@ class IBKRClient:
     async def connect(self):
         """Connects to IBKR Gateway/TWS"""
         await self.ib.connectAsync(self.config.host, self.config.port, clientId=self.config.client_id, timeout=20, readonly=True)
+        print(f"IBKR Client connected with host={self.config.host}, port={self.config.port}, clientId={self.config.client_id}")
 
     async def disconnect(self):
         """Disconnects from IBKR"""
@@ -31,11 +32,13 @@ class IBKRClient:
 
     async def fetch_historical_data(self, ticker, granularity, end_date, currency='USD', exchange='SMART'):
         """Fetches historical data for ticker at granularity ending at end_date"""
+        
         contract = Stock(ticker, exchange, currency)
         await self.ib.qualifyContractsAsync(contract)
         bars = await self.ib.reqHistoricalDataAsync(contract, endDateTime=end_date, durationStr=self._get_duration(granularity),
                                                      barSizeSetting=self._get_bar_size(granularity), whatToShow='TRADES', useRTH=True)
-        return [{'date': bar.date, 'open': bar.open, 'high': bar.high, 'low': bar.low, 'close': bar.close, 'volume': bar.volume, 'average': bar.average, 'barCount': bar.barCount} for bar in bars]
+        return [{'date': bar.date, 'open': bar.open, 'high': bar.high, 'low': bar.low, 'close': bar.close, 'volume': bar.volume, 
+                 'average': bar.average, 'barCount': bar.barCount} for bar in bars]
 
     # IO --------------------------------------------------------------------
     # Misc ------------------------------------------------------------------
