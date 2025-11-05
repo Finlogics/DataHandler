@@ -62,8 +62,7 @@ class DataDownloader:
                         end_date = self._get_end_date(granularity, date_str)
                         data = await self.ibkr_client.fetch_historical_data(ticker, granularity, end_date, currency, exchange)
                         if not self.normalization_tracker.has_entry(ticker, granularity):
-                            newest_bar = data[-1]
-                            self.normalization_tracker.add_entry(ticker, granularity, newest_bar['open'], newest_bar['volume'], newest_bar['barCount'])
+                            self.normalization_tracker.add_entry(ticker, granularity, data)
                         self.normalization_tracker.normalize_value(ticker, granularity, data)
                         self.file_manager.write_csv(file_path, data)
                         print(f"SUCCESS: {file_path.name} - completed")

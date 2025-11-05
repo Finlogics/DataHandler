@@ -6,7 +6,7 @@
     "granularities": ["1D"],
     "currency": "EUR",
     "tickers": [  
-      "ADS"
+      "ADS", "ALV", "BAS", "BAYN", "BEI", "BMW", "CON", "DAI", "DB1", "DBK", "DPW", "DTE", "EOAN", "FME", "FRE", "HEI", "HEN3", "IFX", "LIN", "MRK", "MTX", "MUV2", "RWE", "SAP", "SIE", "VOW3"
     ]
   }
 ]
