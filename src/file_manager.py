@@ -8,6 +8,7 @@ class FileManager:
     # LifeCycle -------------------------------------------------------------
     def __init__(self, config):
         self.base_dir = Path(config.processed_data_dir)
+        self.raw_data_dir = Path(config.raw_data_dir)
 
     # Business Logic --------------------------------------------------------
     def get_file_status(self, file_path):
@@ -33,16 +34,19 @@ class FileManager:
         elif status == 'incomplete':
             path.with_suffix('.icl').touch()
 
-    def get_file_path(self, ticker, granularity, date_str):
+    def get_file_path(self, ticker, granularity, date_str, is_raw:bool):
         """Returns path for CSV file based on granularity"""
-        granularity_dir = self.base_dir / granularity
+        granularity_dir = (self.raw_data_dir if is_raw else self.base_dir) / granularity
         granularity_dir.mkdir(parents=True, exist_ok=True)
         return granularity_dir / f"{ticker}-{date_str}.csv"
 
+
     # IO --------------------------------------------------------------------
-    def write_csv(self, file_path, data):
+    def write_csv(self, file_path, data, is_raw:bool):
         """Writes DataFrame to CSV and marks as complete"""
         df = pd.DataFrame(data)
         df.to_csv(file_path, index=False)
-        self.mark_status(file_path, 'completed')
+        if is_raw:
+            self.mark_status(file_path, 'completed')
+
 

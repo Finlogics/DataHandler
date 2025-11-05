@@ -2,11 +2,25 @@
   {
     "name": "DAX_COMPONENTS",
     "exchange": "SMART",
-    "starting_date": "2025-11-01",
+    "starting_date": "2024-01-01",
     "granularities": ["1D"],
     "currency": "EUR",
+    "type": "Stock",
     "tickers": [  
-      "ADS", "ALV", "BAS", "BAYN", "BEI", "BMW", "CON", "DAI", "DB1", "DBK", "DPW", "DTE", "EOAN", "FME", "FRE", "HEI", "HEN3", "IFX", "LIN", "MRK", "MTX", "MUV2", "RWE", "SAP", "SIE", "VOW3"
+      "ADS", "ALV", "BAS", "BAYN", "BEI", "BMW", "CON", "DB1", "DBK", "DTE", "EOAN", "FME", "FRE", "HEI", "HEN3", "IFX", "LIN", "MRK", "MTX", "MUV2", 
+      "RWE", "SAP", "SIE", "VOW3"
+    ]
+  },
+    {
+    "name": "DAX_INDEX",
+    "exchange": "EUREX",
+    "starting_date": "2024-01-01",
+    "granularities": ["1D"],
+    "currency": "EUR",
+    "type": "Index",
+    "tickers": [  
+      "DAX"
     ]
   }
+
 ]
