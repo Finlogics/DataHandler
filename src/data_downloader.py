@@ -63,8 +63,8 @@ class DataDownloader:
                         data = await self.ibkr_client.fetch_historical_data(ticker, granularity, end_date, currency, exchange)
                         if not self.normalization_tracker.has_entry(ticker, granularity):
                             self.normalization_tracker.add_entry(ticker, granularity, data)
-                        self.normalization_tracker.normalize_value(ticker, granularity, data)
-                        self.file_manager.write_csv(file_path, data)
+                        normalized = self.normalization_tracker.normalize_value(ticker, granularity, data)
+                        self.file_manager.write_csv(file_path, normalized)
                         print(f"SUCCESS: {file_path.name} - completed")
                     except Exception as e:
                         self.file_manager.mark_status(file_path, 'corrupted')

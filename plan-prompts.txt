@@ -23,3 +23,7 @@ lower than 1D and a year for 1D and above.
     "DB1", "DHL", "DTE", "EOAN", "FRE", "FME", "HNR1", "HEI", "HEN3", "IFX", "MBG", "MRK", "MTX", "MUV2", "P911",
     "PAH3", "QIA", "RHM", "RWE", "SAP", "SRT3", "SIE", "ENR", "SHL", "SY1", "VOW3", "VNA", "ZAL"]
   }
+
+  right now, the program fetches the data, normalize it, and saves the normalized data as processed-data in the ocrresponding folder. now i want to save the raw data into raw-data folder. the folder
+  should be set in the config.ini. the folder structure for raw-data is exactly the same as the processed-data folder. the only difference from a scaffolding point of view is that the processed-data
+  folder includes normalization.json,
