@@ -50,25 +50,31 @@ class DataDownloader:
         """Downloads all data for a single order"""
         currency = order.get('currency', 'USD')
         exchange = order.get('exchange', 'SMART')
+        contract_type = order.get('type', 'Stock')
         for ticker in order['tickers']:
             for granularity in order['granularities']:
                 dates = self._generate_date_ranges(granularity, order['starting_date'])[::-1]
                 for date_str in dates:
-                    file_path = self.file_manager.get_file_path(ticker, granularity, date_str)
-                    if not self._should_download(file_path):
+                    raw_path = self.file_manager.get_file_path(ticker, granularity, date_str, True)
+                    if not self._should_download(raw_path):
                         continue
                     try:
-                        self.file_manager.mark_status(file_path, 'incomplete')
                         end_date = self._get_end_date(granularity, date_str)
-                        data = await self.ibkr_client.fetch_historical_data(ticker, granularity, end_date, currency, exchange)
+                        data = await self.ibkr_client.fetch_historical_data(ticker, granularity, end_date, currency, exchange, contract_type)
+
+                        self.file_manager.mark_status(raw_path, 'incomplete')
+                        self.file_manager.write_csv(raw_path, data, True)
+
                         if not self.normalization_tracker.has_entry(ticker, granularity):
                             self.normalization_tracker.add_entry(ticker, granularity, data)
+                        
                         normalized = self.normalization_tracker.normalize_value(ticker, granularity, data)
-                        self.file_manager.write_csv(file_path, normalized)
-                        print(f"SUCCESS: {file_path.name} - completed")
+                        processed_path = self.file_manager.get_file_path(ticker, granularity, date_str, False)
+                        self.file_manager.write_csv(processed_path, normalized, False)
+                        print(f"SUCCESS: {raw_path.name} - completed")
                     except Exception as e:
-                        self.file_manager.mark_status(file_path, 'corrupted')
-                        print(f"FAILED: {file_path.name} - corrupted - {e}")
+                        self.file_manager.mark_status(raw_path, 'corrupted')
+                        print(f"FAILED: {raw_path.name} - corrupted - {e}")
                     await asyncio.sleep(self.config.request_delay_seconds)
 
     def _get_end_date(self, granularity, date_str):
