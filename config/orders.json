@@ -2,8 +2,8 @@
   {
     "name": "DAX_COMPONENTS",
     "exchange": "SMART",
-    "starting_date": "2024-01-01",
-    "granularities": ["1D"],
+    "starting_date": "2023-01-01",
+    "granularities": ["1D", "30M", "5M", "1M"],
     "currency": "EUR",
     "type": "Stock",
     "tickers": [  
@@ -14,8 +14,8 @@
     {
     "name": "DAX_INDEX",
     "exchange": "EUREX",
-    "starting_date": "2024-01-01",
-    "granularities": ["1D"],
+    "starting_date": "2023-01-01",
+    "granularities": ["1D", "30M", "5M", "1M"],
     "currency": "EUR",
     "type": "Index",
     "tickers": [  

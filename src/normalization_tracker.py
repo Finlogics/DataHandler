@@ -56,7 +56,7 @@ class NormalizationTracker:
     def add_entry(self, ticker: str, granularity: str, bar_data: list[dict]):
         """Add normalization entry and save to JSON."""
         df = pd.DataFrame(bar_data)
-        max_values = {col: float(df[col].max()) for col in df.columns if col != 'date'}
+        max_values = {col: float(df[col].max()) or 1.0 for col in df.columns if col != 'date'}
         self.data[(ticker, granularity)] = max_values
         self._save()
 
