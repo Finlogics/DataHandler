@@ -1,10 +1,12 @@
 [
   {
-    "name": "DJIA",
+    "name": "DAX_COMPONENTS",
     "exchange": "SMART",
     "starting_date": "2025-11-01",
     "granularities": ["1D"],
-    "currency": "USD",
-    "tickers": ["AAPL", "MSFT", "GOOGL"]
+    "currency": "EUR",
+    "tickers": [  
+      "ADS"
+    ]
   }
 ]
