@@ -37,9 +37,9 @@ Configure IBKR connection, file paths, and timing parameters:
 - `[Paths]`: Data directory and orders file location
 - `[Timing]`: Retry intervals and download cycle frequency
 
-### config/orders.json
-Define download orders as JSON array with:
-- `name`: Order identifier
+### config/download_requests.json
+Define download requests as JSON array with:
+- `name`: Request identifier
 - `starting_date`: Historical data start date (YYYY-MM-DD)
 - `granularities`: Time intervals (e.g., "1D", "1M")
 - `tickers`: List of stock symbols
@@ -50,7 +50,7 @@ Define download orders as JSON array with:
 python main.py
 ```
 
-The application connects to IBKR Gateway, processes orders from orders.json, and downloads data periodically. Data is saved to the configured raw_data_dir.
+The application connects to IBKR Gateway, processes download requests from download_requests.json, and downloads data periodically. Data is saved to the configured raw_data_dir.
 
 ## Project Structure
 

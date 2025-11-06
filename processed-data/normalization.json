@@ -207,5 +207,49 @@
     "volume": 26112.0,
     "average": 92.836,
     "barCount": 304.0
+  },
+  {
+    "ticker": "BEI",
+    "granularity": "1M",
+    "open": 93.4,
+    "high": 93.42,
+    "low": 93.36,
+    "close": 93.4,
+    "volume": 12398.0,
+    "average": 93.38,
+    "barCount": 72.0
+  },
+  {
+    "ticker": "BMW",
+    "granularity": "1D",
+    "open": 91.38,
+    "high": 95.0,
+    "low": 90.86,
+    "close": 91.56,
+    "volume": 10304977.0,
+    "average": 91.193,
+    "barCount": 70891.0
+  },
+  {
+    "ticker": "BMW",
+    "granularity": "30M",
+    "open": 85.64,
+    "high": 85.94,
+    "low": 85.36,
+    "close": 85.78,
+    "volume": 382519.0,
+    "average": 85.602,
+    "barCount": 3285.0
+  },
+  {
+    "ticker": "BMW",
+    "granularity": "5M",
+    "open": 85.76,
+    "high": 85.94,
+    "low": 85.59,
+    "close": 85.78,
+    "volume": 129609.0,
+    "average": 85.788,
+    "barCount": 942.0
   }
 ]

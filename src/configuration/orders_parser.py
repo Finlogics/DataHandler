@@ -2,7 +2,7 @@ import json
 from pathlib import Path
 
 class OrdersParser:
-    """Parses orders.json configuration file"""
+    """Parses download_requests.json configuration file"""
 
     # LifeCycle -------------------------------------------------------------
     def __init__(self, config):
@@ -10,6 +10,6 @@ class OrdersParser:
 
     # Business Logic --------------------------------------------------------
     def get_orders(self):
-        """Returns list of order dictionaries from orders.json"""
+        """Returns list of order dictionaries from download_requests.json"""
         with open(self.orders_file, 'r') as f:
             return json.load(f)
