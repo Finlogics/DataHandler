@@ -1,16 +1,4 @@
 [
-  {
-    "name": "DAX_COMPONENTS",
-    "exchange": "SMART",
-    "starting_date": "2023-01-01",
-    "granularities": ["1D", "30M", "5M", "1M"],
-    "currency": "EUR",
-    "type": "Stock",
-    "tickers": [  
-      "ADS", "ALV", "BAS", "BAYN", "BEI", "BMW", "CON", "DB1", "DBK", "DTE", "EOAN", "FME", "FRE", "HEI", "HEN3", "IFX", "LIN", "MRK", "MTX", "MUV2", 
-      "RWE", "SAP", "SIE", "VOW3"
-    ]
-  },
     {
     "name": "DAX_INDEX",
     "exchange": "EUREX",

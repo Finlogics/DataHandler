@@ -9,7 +9,7 @@ asyncio.set_event_loop(loop)
 from src.configuration.config import Config
 from src.file_manager import FileManager
 from src.providers.ibkr_client import IBKRClient
-from src.configuration.orders_parser import OrdersParser
+from src.configuration.download_requests_parser import DownloadRequestsParser
 from src.data_downloader import DataDownloader
 from src.normalization_tracker import NormalizationTracker
 
@@ -19,8 +19,8 @@ async def main():
     file_manager = FileManager(config)
     normalization_tracker = NormalizationTracker(f'{config.processed_data_dir}/normalization.json')
     ibkr_client = IBKRClient(config)
-    orders_parser = OrdersParser(config)
-    downloader = DataDownloader(ibkr_client, file_manager, orders_parser, config, normalization_tracker)
+    download_requests_parser = DownloadRequestsParser(config)
+    downloader = DataDownloader(ibkr_client, file_manager, download_requests_parser, config, normalization_tracker)
 
     print("Attempting to connect to IBKR...")
     while True:

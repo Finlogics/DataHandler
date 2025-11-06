@@ -34,7 +34,7 @@ pip install -e .
 ### config/config.ini
 Configure IBKR connection, file paths, and timing parameters:
 - `[IBKR]`: Gateway/TWS connection settings (host, port, client_id)
-- `[Paths]`: Data directory and orders file location
+- `[Paths]`: Data directory and download requests file location
 - `[Timing]`: Retry intervals and download cycle frequency
 
 ### config/download_requests.json
@@ -59,7 +59,7 @@ DataHandler/
 ├── config/           # Configuration files
 ├── processed-data/   # Downloaded market data
 ├── src/
-│   ├── configuration/  # Config and order parsing
+│   ├── configuration/  # Config and download request parsing
 │   ├── providers/      # IBKR client implementation
 │   ├── data_downloader.py
 │   └── file_manager.py

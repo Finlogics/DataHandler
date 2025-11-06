@@ -3,7 +3,7 @@ from dateutil.relativedelta import relativedelta
 import asyncio
 
 from src.configuration.config import Config
-from src.configuration.orders_parser import OrdersParser
+from src.configuration.download_requests_parser import DownloadRequestsParser
 from src.file_manager import FileManager
 from src.normalization_tracker import NormalizationTracker
 from src.providers.ibkr_client import IBKRClient
@@ -12,10 +12,10 @@ class DataDownloader:
     """Orchestrates data download from IBKR"""
 
     # LifeCycle -------------------------------------------------------------
-    def __init__(self, ibkr_client:IBKRClient, file_manager:FileManager, orders_parser:OrdersParser, config:Config, normalization_tracker:NormalizationTracker):
+    def __init__(self, ibkr_client:IBKRClient, file_manager:FileManager, download_requests_parser:DownloadRequestsParser, config:Config, normalization_tracker:NormalizationTracker):
         self.ibkr_client = ibkr_client
         self.file_manager = file_manager
-        self.orders_parser = orders_parser
+        self.download_requests_parser = download_requests_parser
         self.config = config
         self.normalization_tracker = normalization_tracker
 
@@ -46,14 +46,14 @@ class DataDownloader:
         """Returns True if granularity is 1D or larger"""
         return granularity.endswith('D') or granularity.endswith('W')
 
-    async def download_order(self, order):
-        """Downloads all data for a single order"""
-        currency = order.get('currency', 'USD')
-        exchange = order.get('exchange', 'SMART')
-        contract_type = order.get('type', 'Stock')
-        for ticker in order['tickers']:
-            for granularity in order['granularities']:
-                dates = self._generate_date_ranges(granularity, order['starting_date'])[::-1]
+    async def download_request(self, download_request):
+        """Downloads all data for a single download request"""
+        currency = download_request.get('currency', 'USD')
+        exchange = download_request.get('exchange', 'SMART')
+        contract_type = download_request.get('type', 'Stock')
+        for ticker in download_request['tickers']:
+            for granularity in download_request['granularities']:
+                dates = self._generate_date_ranges(granularity, download_request['starting_date'])[::-1]
                 for date_str in dates:
                     raw_path = self.file_manager.get_file_path(ticker, granularity, date_str, True)
                     if not self._should_download(raw_path):
@@ -84,10 +84,10 @@ class DataDownloader:
         return f"{date_str.replace('-', '')} 23:59:59"
 
     async def run(self):
-        """Runs download for all orders"""
-        orders = self.orders_parser.get_orders()
-        for order in orders:
-            await self.download_order(order)
+        """Runs download for all download requests"""
+        download_requests = self.download_requests_parser.get_download_requests()
+        for download_request in download_requests:
+            await self.download_request(download_request)
 
     # IO --------------------------------------------------------------------
     # Misc ------------------------------------------------------------------
