@@ -2,11 +2,12 @@
     {
     "name": "DAX_INDEX",
     "exchange": "EUREX",
-    "starting_date": "2023-01-01",
+    "starting_date": "2024-01-01",
     "granularities": ["1D", "30M", "5M", "1M"],
     "currency": "EUR",
     "type": "Index",
-    "tickers": [  
+    "whatToShow": "TRADES",
+    "tickers": [
       "DAX"
     ]
   }

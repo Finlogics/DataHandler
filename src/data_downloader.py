@@ -51,6 +51,7 @@ class DataDownloader:
         currency = download_request.get('currency', 'USD')
         exchange = download_request.get('exchange', 'SMART')
         contract_type = download_request.get('type', 'Stock')
+        what_to_show = download_request.get('whatToShow', 'TRADES')
         for ticker in download_request['tickers']:
             for granularity in download_request['granularities']:
                 dates = self._generate_date_ranges(granularity, download_request['starting_date'])[::-1]
@@ -60,7 +61,7 @@ class DataDownloader:
                         continue
                     try:
                         end_date = self._get_end_date(granularity, date_str)
-                        data = await self.ibkr_client.fetch_historical_data(ticker, granularity, end_date, currency, exchange, contract_type)
+                        data = await self.ibkr_client.fetch_historical_data(ticker, granularity, end_date, currency, exchange, contract_type, what_to_show)
 
                         self.file_manager.mark_status(raw_path, 'incomplete')
                         self.file_manager.write_csv(raw_path, data, True)

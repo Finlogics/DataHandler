@@ -1,4 +1,4 @@
-from ib_async import IB, Stock, Index
+from ib_async import IB, Stock, Index, CFD
 import asyncio
 
 
@@ -51,13 +51,15 @@ class IBKRClient:
             return '1 D'
         return '1 Y'
 
-    async def fetch_historical_data(self, ticker, granularity, end_date, currency='USD', exchange='SMART', contract_type='Stock'):
+    async def fetch_historical_data(self, ticker, granularity, end_date, currency='USD', exchange='SMART', contract_type='Stock', what_to_show='TRADES'):
         """Fetches historical data for ticker at granularity ending at end_date"""
-
+        
         if contract_type == 'Stock':
             contract = Stock(ticker, exchange, currency)
         elif contract_type == 'Index':
             contract = Index(ticker, exchange, currency)
+        elif contract_type == 'CFD':
+            contract = CFD(ticker, exchange, currency)
         else:
             raise ValueError(f"Unsupported contract type: {contract_type}")
         
@@ -66,7 +68,7 @@ class IBKRClient:
             raise ValueError(f"Could not verify contract for ticker {ticker} on exchange {exchange} with currency {currency}")
         
         bars = await self.ib.reqHistoricalDataAsync(verified[0], endDateTime=end_date, durationStr=self._get_duration(granularity),
-                                                     barSizeSetting=self._get_bar_size(granularity), whatToShow='TRADES', useRTH=True)
+                                                     barSizeSetting=self._get_bar_size(granularity), whatToShow=what_to_show, useRTH=True)
         return [{'date': bar.date, 'open': bar.open, 'high': bar.high, 'low': bar.low, 'close': bar.close, 'volume': bar.volume, 
                  'average': bar.average, 'barCount': bar.barCount} for bar in bars]
 
