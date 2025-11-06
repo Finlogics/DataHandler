@@ -1,4 +1,5 @@
 from ib_async import IB, Stock, Index
+import asyncio
 
 
 class IBKRClient:
@@ -8,15 +9,35 @@ class IBKRClient:
     def __init__(self, config):
         self.config = config
         self.ib = IB()
+        self.ib.disconnectedEvent += self._on_disconnected
 
     async def connect(self):
-        """Connects to IBKR Gateway/TWS"""
-        await self.ib.connectAsync(self.config.host, self.config.port, clientId=self.config.client_id, timeout=20, readonly=True)
-        print(f"IBKR Client connected with host={self.config.host}, port={self.config.port}, clientId={self.config.client_id}")
+        """Connects to IBKR Gateway/TWS with retry logic"""
+        max_attempts = 10
+        current_attempt = 0
+        delay_secs = 60
+
+        while current_attempt < max_attempts:
+            try:
+                await self.ib.connectAsync(self.config.host, self.config.port, clientId=self.config.client_id, timeout=20, readonly=True)
+                print(f"IBKR Client connected with host={self.config.host}, port={self.config.port}, clientId={self.config.client_id}")
+                break
+            except Exception as err:
+                current_attempt += 1
+                if current_attempt < max_attempts:
+                    print(f"Connection failed, retrying in {delay_secs} seconds... (attempt {current_attempt}/{max_attempts})")
+                    await asyncio.sleep(delay_secs)
+                else:
+                    raise Exception(f"Max reconnection attempts ({max_attempts}) exceeded") from err
 
     async def disconnect(self):
         """Disconnects from IBKR"""
         self.ib.disconnect()
+
+    def _on_disconnected(self):
+        """Auto-reconnect handler when IB Gateway disconnects"""
+        print("Disconnected from IB Gateway. Attempting to reconnect...")
+        asyncio.create_task(self.connect())
 
     # Business Logic --------------------------------------------------------
     def _get_bar_size(self, granularity):
