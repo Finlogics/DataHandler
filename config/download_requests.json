@@ -1,14 +1,26 @@
 [
-    {
+  {
     "name": "DAX_INDEX",
     "exchange": "EUREX",
     "starting_date": "2024-01-01",
-    "granularities": ["1D", "30M", "5M", "1M"],
+    "granularities": ["1D"],
     "currency": "EUR",
     "type": "Index",
     "whatToShow": "TRADES",
     "tickers": [
       "DAX"
+    ]
+  },
+  {
+    "name": "CFDs",
+    "exchange": "SMART",
+    "starting_date": "2024-01-01",
+    "granularities": ["1D"],
+    "currency": "EUR",
+    "type": "CFD",
+    "whatToShow": "BID_ASK",
+    "tickers": [
+      "IBDE40"
     ]
   }
 

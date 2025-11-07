@@ -8,9 +8,9 @@ class NormalizationTracker:
 
     # LifeCycle
     # -------------------------------------------------------------------------
-    def __init__(self, file_path: str):
+    def __init__(self, base_dir: str, what_to_show: str):
         """Initialize tracker and load existing data from JSON file."""
-        self.file_path = Path(file_path)
+        self.file_path = Path(base_dir) / f"{what_to_show}_normalization.json"
         self.data = {}
         if not self.file_path.exists():
             with open(self.file_path, 'w') as f:

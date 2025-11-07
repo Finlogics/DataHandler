@@ -17,10 +17,10 @@ async def main():
     """Main entry point with infinite loop for periodic downloads"""
     config = Config()
     file_manager = FileManager(config)
-    normalization_tracker = NormalizationTracker(f'{config.processed_data_dir}/normalization.json')
+    normalization_trackers = {'TRADES': NormalizationTracker(config.processed_data_dir, 'TRADES'), 'BID_ASK': NormalizationTracker(config.processed_data_dir, 'BID_ASK')}
     ibkr_client = IBKRClient(config)
     download_requests_parser = DownloadRequestsParser(config)
-    downloader = DataDownloader(ibkr_client, file_manager, download_requests_parser, config, normalization_tracker)
+    downloader = DataDownloader(ibkr_client, file_manager, download_requests_parser, config, normalization_trackers)
 
     print("Attempting to connect to IBKR...")
     while True:
