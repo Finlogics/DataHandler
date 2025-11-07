@@ -6,14 +6,14 @@ from src.configuration.config import Config
 from src.configuration.download_requests_parser import DownloadRequestsParser
 from src.file_manager import FileManager
 from src.normalization_tracker import NormalizationTracker
-from src.providers.ibkr_client import IBKRClient
+from src.providers.base_client import ProviderClient
 
 class DataDownloader:
-    """Orchestrates data download from IBKR"""
+    """Orchestrates data download from multiple providers"""
 
     # LifeCycle -------------------------------------------------------------
-    def __init__(self, ibkr_client: IBKRClient, file_manager: FileManager, download_requests_parser: DownloadRequestsParser, config: Config, normalization_trackers: dict[str, NormalizationTracker]):
-        self.ibkr_client = ibkr_client
+    def __init__(self, provider_clients: dict[str, ProviderClient], file_manager: FileManager, download_requests_parser: DownloadRequestsParser, config: Config, normalization_trackers: dict[tuple[str, str], NormalizationTracker]):
+        self.provider_clients = provider_clients
         self.file_manager = file_manager
         self.download_requests_parser = download_requests_parser
         self.config = config
@@ -52,17 +52,19 @@ class DataDownloader:
         exchange = download_request.get('exchange', 'SMART')
         contract_type = download_request.get('type', 'Stock')
         what_to_show = download_request.get('whatToShow', 'TRADES')
-        normalization_tracker = self.normalization_trackers[what_to_show]
+        provider = download_request.get('provider', 'ibkr')
+        client = self.provider_clients[provider]
+        normalization_tracker = self.normalization_trackers[(provider, what_to_show)]
         for ticker in download_request['tickers']:
             for granularity in download_request['granularities']:
                 dates = self._generate_date_ranges(granularity, download_request['starting_date'])[::-1]
                 for date_str in dates:
-                    raw_path = self.file_manager.get_file_path(ticker, granularity, date_str, True, what_to_show)
+                    raw_path = self.file_manager.get_file_path(ticker, granularity, date_str, True, what_to_show, provider)
                     if not self._should_download(raw_path):
                         continue
                     try:
                         end_date = self._get_end_date(granularity, date_str)
-                        data = await self.ibkr_client.fetch_historical_data(ticker, granularity, end_date, currency, exchange, contract_type, what_to_show)
+                        data = await client.fetch_historical_data(ticker, granularity, end_date, currency, exchange, contract_type, what_to_show)
                         if not data:
                             self.file_manager.mark_status(raw_path, 'not_available')
                             print(f"SKIPPED: {raw_path.name} - no data")
@@ -75,7 +77,7 @@ class DataDownloader:
                             normalization_tracker.add_entry(ticker, granularity, data)
 
                         normalized = normalization_tracker.normalize_value(ticker, granularity, data)
-                        processed_path = self.file_manager.get_file_path(ticker, granularity, date_str, False, what_to_show)
+                        processed_path = self.file_manager.get_file_path(ticker, granularity, date_str, False, what_to_show, provider)
                         self.file_manager.write_csv(processed_path, normalized, False)
                         print(f"SUCCESS: {raw_path.name} - completed")
                     except Exception as e:

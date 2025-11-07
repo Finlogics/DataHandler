@@ -6,11 +6,16 @@ class Config:
 
     # LifeCycle -------------------------------------------------------------
     def __init__(self, config_file='config/config.ini'):
-        parser = configparser.ConfigParser()
+        parser = configparser.ConfigParser(interpolation=None)
         parser.read(config_file)
         self.host = parser.get('IBKR', 'host')
         self.port = parser.getint('IBKR', 'port')
-        self.client_id = parser.getint('IBKR', 'client_id')
+        client_id_str = parser.get('IBKR', 'client_id', fallback='')
+        self.client_id = int(client_id_str) if client_id_str else None
+        self.saxo_client_id = parser.get('SAXO', 'client_id', fallback='')
+        self.saxo_client_secret = parser.get('SAXO', 'client_secret', fallback='')
+        self.saxo_redirect_uri = parser.get('SAXO', 'redirect_uri', fallback='http://localhost:5000/callback')
+        self.saxo_token_file = parser.get('SAXO', 'token_file', fallback='config/saxo_tokens.json')
         self.processed_data_dir = parser.get('Paths', 'processed_data_dir')
         self.raw_data_dir = parser.get('Paths', 'raw_data_dir')
         self.download_requests_file = parser.get('Paths', 'download_requests_file')

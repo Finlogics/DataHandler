@@ -1,26 +1,28 @@
 [
   {
-    "name": "DAX_INDEX",
-    "exchange": "EUREX",
+    "provider": "ibkr",
+    "name": "ETFs",
+    "exchange": "IBIS",
     "starting_date": "2024-01-01",
     "granularities": ["1D"],
     "currency": "EUR",
-    "type": "Index",
+    "type": "Stock",
     "whatToShow": "TRADES",
     "tickers": [
-      "DAX"
+      "ESX1"
     ]
   },
   {
-    "name": "CFDs",
-    "exchange": "SMART",
+    "provider": "ibkr",
+    "name": "ETF bid-askss",
+    "exchange": "IBIS",
     "starting_date": "2024-01-01",
     "granularities": ["1D"],
     "currency": "EUR",
-    "type": "CFD",
+    "type": "Stock",
     "whatToShow": "BID_ASK",
     "tickers": [
-      "IBDE40"
+      "ESX1"
     ]
   }
 

@@ -8,11 +8,12 @@ class NormalizationTracker:
 
     # LifeCycle
     # -------------------------------------------------------------------------
-    def __init__(self, base_dir: str, what_to_show: str):
+    def __init__(self, base_dir: str, provider: str, what_to_show: str):
         """Initialize tracker and load existing data from JSON file."""
-        self.file_path = Path(base_dir) / f"{what_to_show}_normalization.json"
+        self.file_path = Path(base_dir) / provider / f"{what_to_show}_normalization.json"
         self.data = {}
         if not self.file_path.exists():
+            self.file_path.parent.mkdir(parents=True, exist_ok=True)
             with open(self.file_path, 'w') as f:
                 json.dump([], f)
 

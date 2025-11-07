@@ -38,9 +38,9 @@ class FileManager:
         elif status == 'not_available':
             path.with_suffix('.na').touch()
 
-    def get_file_path(self, ticker, granularity, date_str, is_raw: bool, what_to_show: str):
-        """Returns path for CSV file based on whatToShow and granularity"""
-        granularity_dir = (self.raw_data_dir if is_raw else self.base_dir) / what_to_show / granularity
+    def get_file_path(self, ticker: str, granularity: str, date_str: str, is_raw: bool, what_to_show: str, provider: str):
+        """Returns path for CSV file based on provider, whatToShow and granularity"""
+        granularity_dir = (self.raw_data_dir if is_raw else self.base_dir) / provider / what_to_show / granularity
         granularity_dir.mkdir(parents=True, exist_ok=True)
         return granularity_dir / f"{ticker}-{date_str}.csv"
 

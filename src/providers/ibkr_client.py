@@ -1,8 +1,9 @@
 from ib_async import IB, Stock, Index, CFD
 import asyncio
+from src.providers.base_client import ProviderClient
 
 
-class IBKRClient:
+class IBKRClient(ProviderClient):
     """Wrapper for ib_async to fetch historical market data"""
 
     # LifeCycle -------------------------------------------------------------

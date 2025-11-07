@@ -1,13 +1,10 @@
-processed-data/BID_ASK_normalization.json
-processed-data/TRADES_normalization.json
-processed-data/TRADES/
-processed-data/BID_ASK/
-raw-data/BID_ASK_normalization.json
-raw-data/TRADES_normalization.json
-raw-data/TRADES/
-raw-data/BID_ASK/
-raw-data/1W/
+processed-data/
+processed-data/*
+raw-data/
+raw-data/*
 plan-prompts.txt
+config/config.ini
+config/saxo_tokens.json
 # Byte-compiled / optimized / DLL files
 __pycache__/
 *.py[codz]
