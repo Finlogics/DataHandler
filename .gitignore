@@ -1,10 +1,8 @@
 processed-data/
-processed-data/*
 raw-data/
-raw-data/*
+ad-hoc/
 plan-prompts.txt
 config/config.ini
-config/download_requests.json
 config/saxo_tokens.json
 # Byte-compiled / optimized / DLL files
 __pycache__/

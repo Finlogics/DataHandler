@@ -117,7 +117,7 @@ class SaxoClient(ProviderClient):
 
     def _map_asset_type(self, contract_type: str) -> str:
         """Maps contract type to Saxo AssetType"""
-        mapping = {'Stock': 'Stock', 'Index': 'StockIndex', 'CFD': 'CfdOnIndex'}
+        mapping = {'Stock': 'Stock', 'Index': 'StockIndex', 'CFD': 'CfdOnIndex', 'ETF': 'Etf'}
         return mapping.get(contract_type, 'Stock')
 
     async def fetch_historical_data(self, ticker: str, granularity: str, end_date: str, currency: str = 'USD', exchange: str = 'SMART', contract_type: str = 'Stock', what_to_show: str = 'TRADES') -> list[dict]:
@@ -126,19 +126,30 @@ class SaxoClient(ProviderClient):
         asset_type = self._map_asset_type(contract_type)
         uic = await self._lookup_uic(ticker, asset_type)
         if not uic:
+            print(f"Saxo UIC lookup failed for ticker {ticker}")
             return []
         url = f"{self.base_url}/chart/v1/charts"
         params = {'Uic': uic, 'AssetType': asset_type, 'Horizon': horizon, 'Count': 1200}
         headers = {'Authorization': f'Bearer {self.access_token}'}
         async with self.session.get(url, params=params, headers=headers) as response:
             if response.status != 200:
+                print(f"Saxo data fetch failed for {ticker} with response {response}")
                 return []
             data = await response.json()
             return self._convert_saxo_data(data, what_to_show)
 
     async def _lookup_uic(self, ticker: str, asset_type: str) -> int:
-        """Looks up UIC for ticker (placeholder - implement actual lookup)"""
-        return None
+        """Looks up UIC for ticker using Saxo instruments API"""
+        url = f"{self.base_url}/ref/v1/instruments"
+        params = {'Keywords': ticker, 'AssetTypes': asset_type}
+        headers = {'Authorization': f'Bearer {self.access_token}'}
+        async with self.session.get(url, params=params, headers=headers) as response:
+            if response.status != 200:
+                return None
+            data = await response.json()
+            if 'Data' in data and len(data['Data']) > 0:
+                return data['Data'][0]['Identifier']
+            return None
 
     def _convert_saxo_data(self, saxo_data: dict, what_to_show: str) -> list[dict]:
         """Converts Saxo OHLC format to IBKR-compatible format"""

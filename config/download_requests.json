@@ -1,28 +1,14 @@
 [
   {
-    "provider": "ibkr",
-    "name": "ETFs",
-    "exchange": "IBIS",
-    "starting_date": "2024-01-01",
+    "provider": "saxo",
+    "name": "CFDs",
+    "starting_date": "2025-01-01",
     "granularities": ["1D"],
     "currency": "EUR",
-    "type": "Stock",
+    "type": "CFD",
     "whatToShow": "TRADES",
     "tickers": [
-      "ESX1"
-    ]
-  },
-  {
-    "provider": "ibkr",
-    "name": "ETF bid-askss",
-    "exchange": "IBIS",
-    "starting_date": "2024-01-01",
-    "granularities": ["1D"],
-    "currency": "EUR",
-    "type": "Stock",
-    "whatToShow": "BID_ASK",
-    "tickers": [
-      "ESX1"
+      "GER40.I"
     ]
   }
 
