@@ -60,7 +60,7 @@ class SaxoClient(ProviderClient):
         """Starts local HTTP server to receive OAuth callback"""
         app = web.Application()
         routes = web.RouteTableDef()
-        @routes.get('/callback')
+        @routes.get('/')
         async def callback(request):
             code = request.query.get('code')
             state = request.query.get('state')
@@ -71,7 +71,7 @@ class SaxoClient(ProviderClient):
         app.add_routes(routes)
         runner = web.AppRunner(app)
         await runner.setup()
-        site = web.TCPSite(runner, 'localhost', 5000)
+        site = web.TCPSite(runner, '0.0.0.0', 5000)
         await site.start()
         while not self.auth_code:
             await asyncio.sleep(0.1)
@@ -83,7 +83,7 @@ class SaxoClient(ProviderClient):
         headers = {'Authorization': f'Basic {auth_header}', 'Content-Type': 'application/x-www-form-urlencoded'}
         data = {'grant_type': 'authorization_code', 'code': self.auth_code, 'redirect_uri': self.config.saxo_redirect_uri}
         async with self.session.post(self.token_url, headers=headers, data=data) as response:
-            if response.status == 200:
+            if response.status in [200, 201]:
                 tokens = await response.json()
                 self.access_token = tokens['access_token']
                 self.refresh_token = tokens['refresh_token']
@@ -100,7 +100,7 @@ class SaxoClient(ProviderClient):
         headers = {'Authorization': f'Basic {auth_header}', 'Content-Type': 'application/x-www-form-urlencoded'}
         data = {'grant_type': 'refresh_token', 'refresh_token': self.refresh_token, 'redirect_uri': self.config.saxo_redirect_uri}
         async with self.session.post(self.token_url, headers=headers, data=data) as response:
-            if response.status == 200:
+            if response.status in [200, 201]:
                 tokens = await response.json()
                 self.access_token = tokens['access_token']
                 self.refresh_token = tokens['refresh_token']

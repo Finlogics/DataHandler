@@ -4,6 +4,7 @@ raw-data/
 raw-data/*
 plan-prompts.txt
 config/config.ini
+config/download_requests.json
 config/saxo_tokens.json
 # Byte-compiled / optimized / DLL files
 __pycache__/
